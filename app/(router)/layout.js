@@ -8,7 +8,7 @@ const layout = ({children}) => {
     <div className='sm:w-64  sm:block fixed'>
         <SideNav/>
     </div>
-    <div className='ml-64'>
+    <div className='md:ml-64'>
     <Header/>
         {children}
         </div>
