@@ -1,5 +1,5 @@
 "use client"
-import { AlignRight, BadgeIcon, BookOpen, GraduationCap } from "lucide-react"
+import { AlignRight, BadgeIcon, BookOpen, GraduationCap, LogIn } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 
@@ -9,21 +9,25 @@ const SideNav = () => {
     const menu = [
         {
             id : 1,
-            name: 'All Courses',
+            name: 'All Blogs',
             icon: BookOpen,
         },
         {
             id : 2,
-            name: 'Membership',
+            name: 'My Blogs',
             icon: BadgeIcon,
             
         },
         {
             id : 3,
-            name: 'Be Instructor',
-            icon: GraduationCap,
-           
+            name: 'About Us',
+            icon: GraduationCap, 
         },
+        {
+          id : 4,
+          name: 'Login',
+          icon: LogIn,
+        }
         
     ]
   return (
