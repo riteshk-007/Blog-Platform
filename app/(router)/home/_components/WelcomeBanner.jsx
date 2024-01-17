@@ -3,7 +3,7 @@ import Image from "next/image"
 
 const WelcomeBanner = () => {
   return (
-    <div className="flex -gap-5 bg-gray-100 rounded-xl p-5  items-center">
+    <div className="flex gap-5 bg-gray-100 rounded-xl p-5  items-center">
     {/* image  */}
     <Image src={"/panda.png"} width={80} height={70} alt="panda"  className="m-2"/>
     <div>
