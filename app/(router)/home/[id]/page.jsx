@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { useState } from "react"
+import CommentSection from "../_components/CommentSection"
 
 const Post = () => {
     const [post, setPost] = useState({
@@ -37,6 +38,8 @@ const Post = () => {
                     <Button onClick={handleDelete} variant="destructive">Delete</Button>
                 </div>
             </div>
+
+            <CommentSection/>
         </div>
     )
 }
