@@ -38,7 +38,7 @@ const SideNav = () => {
     ]
   return (
   <>
-  <button className={`fixed md:hidden  top-0 right-0 m-4 bg-white rounded-full p-2 shadow-lg ${show ? 'md:hidden' : ''}`} onClick={() => setShow(!show)}>
+  <button className={`fixed md:hidden  top-0 right-0 m-4 dark:bg-gray-700 bg-white rounded-full p-2 shadow-lg ${show ? 'md:hidden' : ''}`} onClick={() => setShow(!show)}>
    <AlignRight/>
   </button>
       <div className={`dark:bg-black p-5 h-screen z-50 bg-gray-100 shadow-sm border transition-all duration-500 ease-in-out transform ${show ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
