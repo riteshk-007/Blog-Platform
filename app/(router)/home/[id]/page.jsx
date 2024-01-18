@@ -4,6 +4,7 @@ import Image from "next/image"
 import { useState } from "react"
 import CommentSection from "../_components/CommentSection"
 import { SquarePen, Trash } from "lucide-react"
+import Dialog from "../../_components/Dialog"
 
 const Post = () => {
     const [post, setPost] = useState({
@@ -38,10 +39,9 @@ const Post = () => {
                     <Button onClick={handleUpdate} variant="update" className="m-2">
                         <SquarePen strokeWidth={3} size={17} />
                     </Button>
-                    <Button onClick={handleDelete} variant="destructive">
-                        <Trash strokeWidth={3} size={17}/>
-                   
-                    </Button>
+                    <span>
+                        <Dialog onClick={handleDelete} item={ <Trash strokeWidth={3} size={17} />}/> 
+                     </span>
                 </div>
             </div>
 
