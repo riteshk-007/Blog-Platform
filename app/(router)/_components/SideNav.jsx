@@ -1,4 +1,5 @@
 "use client"
+import { ModeToggle } from "@/components/themeToggle"
 import { AlignRight, BadgeIcon, BookOpen, GraduationCap, LogIn } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -37,10 +38,10 @@ const SideNav = () => {
     ]
   return (
   <>
-  <button className={`fixed md:hidden top-0 right-0 m-4 bg-white rounded-full p-2 shadow-lg ${show ? 'md:hidden' : ''}`} onClick={() => setShow(!show)}>
+  <button className={`fixed md:hidden  top-0 right-0 m-4 bg-white rounded-full p-2 shadow-lg ${show ? 'md:hidden' : ''}`} onClick={() => setShow(!show)}>
    <AlignRight/>
   </button>
-      <div className={`p-5 h-screen bg-gray-100 shadow-sm border transition-all duration-500 ease-in-out transform ${show ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+      <div className={`p-5 h-screen z-50 bg-gray-100 shadow-sm border transition-all duration-500 ease-in-out transform ${show ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
   <Link href={"/home"}   className="flex items-center justify-center"> 
   <Image src='/logo.svg' width={150} height={80} alt='logo'/>
   </Link>
@@ -57,6 +58,10 @@ const SideNav = () => {
               </Link>
             )
           })}
+        </div>
+
+        <div className="w-full h-4/6 border-4 flex items-end justify-end">
+          <ModeToggle/>
         </div>
     </div>
   </>

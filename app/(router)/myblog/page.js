@@ -8,7 +8,7 @@ import Dialog from '../_components/Dialog';
 const UserProfile = ({ user, blogs }) => {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">
-            <div className="max-w-4xl w-full space-y-8 bg-white p-10 rounded-xl shadow-lg z-10">
+            <div className="max-w-4xl w-full space-y-8 bg-white p-10 rounded-xl shadow-lg ">
                 <div className="items-center justify-center w-full">
                     <div className='flex flex-col w-full items-center justify-center'>
                         <h2 className="text-4xl font-bold text-gray-900">
