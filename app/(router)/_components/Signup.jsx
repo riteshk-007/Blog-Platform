@@ -22,7 +22,7 @@ const Signup = ({setShow, show}) => {
         </div>
         <h6
           className="block -mb-3 font-sans text-base font-semibold  text-blue-gray-900">
-          Your Email
+           Email
         </h6>
         <div className="h-11 w-full min-w-[200px]">
           <input placeholder="name@mail.com"
