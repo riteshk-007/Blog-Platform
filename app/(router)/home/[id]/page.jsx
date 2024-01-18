@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { useState } from "react"
 import CommentSection from "../_components/CommentSection"
+import { SquarePen, Trash } from "lucide-react"
 
 const Post = () => {
     const [post, setPost] = useState({
@@ -33,9 +34,14 @@ const Post = () => {
                     <p className="text-sm text-gray-500">Author: {post.author}</p>
                     <p className="text-sm text-gray-500">Date: {post.date}</p>
                 </div>
-                <div>
-                    <Button onClick={handleUpdate} variant="update" className="m-2">Update</Button>
-                    <Button onClick={handleDelete} variant="destructive">Delete</Button>
+                <div className="flex items-center justify-center">
+                    <Button onClick={handleUpdate} variant="update" className="m-2">
+                        <SquarePen strokeWidth={3} size={17} />
+                    </Button>
+                    <Button onClick={handleDelete} variant="destructive">
+                        <Trash strokeWidth={3} size={17}/>
+                   
+                    </Button>
                 </div>
             </div>
 
