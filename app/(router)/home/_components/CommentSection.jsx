@@ -13,14 +13,14 @@ const CommentSection = () => {
             <h3 className="text-2xl font-bold mt-4">Comments</h3>
             <article
                       
-                      className="p-6 mb-3 text-base bg-gray-200 border-t border-gray-200 border"
+                      className="p-6 mb-3 text-base dark:bg-gray-800 bg-gray-200 border-t border-gray-200 dark:border-gray-900 border"
                     >
                       <footer className="flex justify-between items-center mb-2">
                         <div className="flex items-center">
-                          <p className="inline-flex items-center mr-3 text-sm text-gray-600 font-semibold">
+                          <p className="inline-flex items-center mr-3 text-sm text-gray-600 dark:text-gray-100 font-semibold">
                            Ritesh
                           </p>
-                          <p className="text-sm text-gray-600 ">
+                          <p className="text-sm text-gray-600 dark:text-gray-100 ">
                             {/* <time pubdate="true" dateTime={comment.date}>
                               {new Date(comment?.date).toLocaleDateString()}
                             </time> */}
@@ -28,7 +28,7 @@ const CommentSection = () => {
                           </p>
                         </div>
                         <button
-                          className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
+                          className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:bg-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
                           type="button"
                         >
                           <svg
@@ -42,7 +42,7 @@ const CommentSection = () => {
                           </svg>
                         </button>
                       </footer>
-                      <p className="text-gray-800 font-semibold">
+                      <p className="text-gray-800 dark:text-gray-200 font-semibold">
                         nice post and good work
                       </p>
                       <div className="flex items-center mt-4 space-x-4">

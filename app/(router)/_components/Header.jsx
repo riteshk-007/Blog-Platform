@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 
 const Header = () => {
   return (
-    <div className='p-4 bg-gray-100 flex md:justify-between md:w-full'>
+    <div className='p-4 bg-gray-100 dark:bg-black flex md:justify-between md:w-full '>
         {/* search bar */}
       <div className='flex gap-2 border p-2 rounded-md md:w-full'>
         <Search className='h-5 w-5'/>

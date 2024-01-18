@@ -24,16 +24,16 @@ const Post = () => {
     }
 
     return (
-        <div className="flex flex-col bg-gray-100 rounded-lg p-5 mt-5 mx-5">
+        <div className="flex flex-col bg-gray-100 dark:bg-gray-900 rounded-lg p-5 mt-5 mx-5">
             <div className="w-full overflow-hidden xl:h-[55vh]">
                 <Image src={post.imgSrc} width={1780} height={500} alt="blog Image" loading='lazy' className="object-contain w-full h-full object-center rounded-lg" />
             </div>
             <h2 className="text-2xl font-bold mt-4">{post.title}</h2>
-            <p className="text-gray-700 mt-2">{post.description}</p>
+            <p className="text-gray-700 mt-2 dark:text-gray-200">{post.description}</p>
             <div className="flex justify-between items-center mt-4">
                 <div>
-                    <p className="text-sm text-gray-500">Author: {post.author}</p>
-                    <p className="text-sm text-gray-500">Date: {post.date}</p>
+                    <p className="text-sm dark:text-gray-300 text-gray-500">Author: {post.author}</p>
+                    <p className="text-sm dark:text-gray-300 text-gray-500">Date: {post.date}</p>
                 </div>
                 <div className="flex items-center justify-center">
                     <Button onClick={handleUpdate} variant="update" className="m-2">

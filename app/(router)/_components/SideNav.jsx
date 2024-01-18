@@ -41,7 +41,7 @@ const SideNav = () => {
   <button className={`fixed md:hidden  top-0 right-0 m-4 bg-white rounded-full p-2 shadow-lg ${show ? 'md:hidden' : ''}`} onClick={() => setShow(!show)}>
    <AlignRight/>
   </button>
-      <div className={`p-5 h-screen z-50 bg-gray-100 shadow-sm border transition-all duration-500 ease-in-out transform ${show ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+      <div className={`dark:bg-black p-5 h-screen z-50 bg-gray-100 shadow-sm border transition-all duration-500 ease-in-out transform ${show ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
   <Link href={"/home"}   className="flex items-center justify-center"> 
   <Image src='/logo.svg' width={150} height={80} alt='logo'/>
   </Link>
@@ -50,8 +50,8 @@ const SideNav = () => {
         <div className="mt-8">
           {menu.map((item)=>{
             return(
-              <Link href={item.url} key={item.id} className="group flex gap-3 mt-2 p-3 text-[17px] items-center text-gray-700 cursor-pointer
-              hover:bg-primary hover:text-white rounded-md transition duration-300
+              <Link href={item.url} key={item.id} className="group flex gap-3 mt-2 p-3 text-[17px] items-center text-gray-700 dark:text-gray-100 cursor-pointer
+              hover:bg-primary hover:text-white dark:hover:text-black rounded-md transition duration-300
               ">
               <item.icon className="group-hover:animate-bounce"/>
               <h2>{item.name}</h2> 
@@ -60,8 +60,15 @@ const SideNav = () => {
           })}
         </div>
 
-        <div className="w-full h-4/6 border-4 flex items-end justify-end">
+        <div className="w-full h-4/6 flex items-end justify-start pb-10">
+        
+          <span className="
+              flex items-center justify-center gap-2 text-gray-700 dark:text-gray-100 cursor-pointer
+          ">
+             Theme 
           <ModeToggle/>
+          </span>
+
         </div>
     </div>
   </>
