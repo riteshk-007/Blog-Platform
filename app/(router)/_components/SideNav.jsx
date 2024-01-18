@@ -32,16 +32,16 @@ const SideNav = () => {
           id : 4,
           name: 'Login',
           icon: LogIn,
-          url: '/home'
+          url: '/signup'
         }
         
     ]
   return (
   <>
-  <button className={`fixed md:hidden  top-0 right-0 m-4 dark:bg-gray-700 bg-white rounded-full p-2 shadow-lg ${show ? 'md:hidden' : ''}`} onClick={() => setShow(!show)}>
+  <button className={`fixed md:hidden z-50  top-0 right-0 m-4 dark:bg-gray-700 bg-white rounded-full p-2 shadow-lg ${show ? 'md:hidden' : ''}`} onClick={() => setShow(!show)}>
    <AlignRight/>
   </button>
-      <div className={`dark:bg-black p-5 h-screen z-50 bg-gray-100 shadow-sm border transition-all duration-500 ease-in-out transform ${show ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+      <div className={`dark:bg-black  z-auto p-5 h-screen   bg-gray-100 shadow-sm border transition-all duration-500 ease-in-out transform ${show ? 'translate-x-0' : '-translate-x-full md:translate-x-0 '}`}>
   <Link href={"/home"}   className="flex items-center justify-center"> 
   <Image src='/logo.svg' width={150} height={80} alt='logo'/>
   </Link>
@@ -60,11 +60,9 @@ const SideNav = () => {
           })}
         </div>
 
-        <div className="w-full h-4/6 flex items-end justify-start pb-10">
+        <div className="w-full h-1/2  flex items-start justify-start py-5 ">
         
-          <span className="
-              flex items-center justify-center gap-2 text-gray-700 dark:text-gray-100 cursor-pointer
-          ">
+          <span className="w-full flex items-center justify-start gap-5 text-gray-700 dark:text-gray-100 cursor-pointer">
              Theme 
           <ModeToggle/>
           </span>
