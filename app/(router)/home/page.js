@@ -1,3 +1,4 @@
+import Pagginate from "@/utils/Pagginate"
 import AllBlogs from "./_components/AllBlogs"
 import WelcomeBanner from "./_components/WelcomeBanner"
 
@@ -14,6 +15,9 @@ const Home = () => {
      <div>
      
      </div>
+    <div className="col-span-2 flex items-center justify-center my-5">
+      <Pagginate/>
+    </div>
     </div>
   )
 }
