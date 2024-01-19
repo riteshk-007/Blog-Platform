@@ -40,6 +40,20 @@ export const loginUser = createAsyncThunk(
     }
   }
 );
+// login user details
+export const getUser = createAsyncThunk("user/getUser", async (thunkAPI) => {
+  try {
+    const response = await axios.get("/api/login");
+    if (response.data.status === 200) {
+      return response.data;
+    } else {
+      return thunkAPI.rejectWithValue(response.data);
+    }
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
 // user slice
 export const UserSignupLoginSlice = createSlice({
   name: "user",
@@ -69,6 +83,19 @@ export const UserSignupLoginSlice = createSlice({
         state.entity = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+    // get user details
+    builder
+      .addCase(getUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.entity = action.payload;
+      })
+      .addCase(getUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
