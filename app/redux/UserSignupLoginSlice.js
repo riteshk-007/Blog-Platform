@@ -53,7 +53,19 @@ export const getUser = createAsyncThunk("user/getUser", async (thunkAPI) => {
     return thunkAPI.rejectWithValue(error);
   }
 });
-
+// logout user
+export const logoutUser = createAsyncThunk("user/logout", async (thunkAPI) => {
+  try {
+    const response = await axios.get("/api/logout");
+    if (response.data.status === 200) {
+      return response.data;
+    } else {
+      return thunkAPI.rejectWithValue(response.data);
+    }
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 // user slice
 export const UserSignupLoginSlice = createSlice({
   name: "user",
@@ -96,6 +108,19 @@ export const UserSignupLoginSlice = createSlice({
         state.entity = action.payload;
       })
       .addCase(getUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+    // logout user
+    builder
+      .addCase(logoutUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.entity = action.payload;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
