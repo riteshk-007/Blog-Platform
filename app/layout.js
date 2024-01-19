@@ -1,6 +1,7 @@
 import { Outfit } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from "@/components/theme-provider"
+import { ReduxProvider } from './redux/Provider'
 
 const inter = Outfit({ subsets: ['latin'] })
 
@@ -17,7 +18,9 @@ export default function RootLayout({ children }) {
             attribute="class"
             defaultTheme="system"
           >
+          <ReduxProvider>
             {children}
+          </ReduxProvider>
           </ThemeProvider>
           </body>
     </html>
