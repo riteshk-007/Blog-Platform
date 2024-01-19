@@ -24,7 +24,7 @@ export const POST = async (req) => {
       if (!isMatch) {
         return NextResponse.json({ message: "Invalid password", status: 400 });
       }
-      const authToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      const authToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
       cookies().set("authToken", authToken, {
         httpOnly: true,
         maxAge: 60 * 60 * 24 * 7,
@@ -45,7 +45,7 @@ export const POST = async (req) => {
 
 export const GET = async (req) => {
   try {
-    const authToken = cookies().get("authToken")?.value;
+    const authToken = cookies().get("authToken")?.value || "";
     if (!authToken) {
       return NextResponse.json({
         message: "Please login to continue",
@@ -53,13 +53,14 @@ export const GET = async (req) => {
       });
     }
     const data = jwt.verify(authToken, process.env.JWT_SECRET);
-    const id = data.id;
     const user = await prisma.user.findUnique({
       where: {
-        _id: id,
+        id: data.id,
       },
       select: {
-        password: false,
+        id: true,
+        name: true,
+        email: true,
       },
     });
     if (!user) {
