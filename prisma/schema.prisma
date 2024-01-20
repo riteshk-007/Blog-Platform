@@ -20,10 +20,10 @@ model User {
 }
 
 model Post {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
-  content String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String
   createdAt DateTime @default(now())
-  authorId String @db.ObjectId
-  author User @relation(fields: [authorId], references: [id])
+  userId    String @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
 }
