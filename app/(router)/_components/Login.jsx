@@ -34,9 +34,8 @@ const Login = ({ setShow, show }) => {
       }, 2500);
     }
   }, [error]);
-
   useEffect(() => {
-    if (user?.status === 200) {
+    if (user?.data) {
       router.push("/home");
     }
   }, [user, router]);
