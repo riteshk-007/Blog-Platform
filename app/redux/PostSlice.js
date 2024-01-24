@@ -4,7 +4,7 @@ export const PostSlice = createSlice({
   name: "post",
   initialState: { post: {}, loading: false, error: null, show: false },
   reducers: {
-    setPost: (state) => {
+    showPost: (state) => {
       state.show = true;
     },
     hidePost: (state) => {
