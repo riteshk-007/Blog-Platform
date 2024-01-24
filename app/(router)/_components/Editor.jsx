@@ -11,7 +11,7 @@ const Editor = () => {
     <div className="w-screen h-screen flex items-center justify-center fixed bg-gray-950/50 border-4 left-0 top-0">
       <div
         onClick={() => dispatch({ type: "post/hidePost" })}
-        className="absolute top-4 right-5 p-2 dark:text-white cursor-pointer hover:text-red-500 dark:hover:text-red-500"
+        className="absolute top-4 right-5 p-2 text-white cursor-pointer hover:text-red-500 dark:hover:text-red-500"
       >
         <XCircleIcon size={30} />
       </div>
