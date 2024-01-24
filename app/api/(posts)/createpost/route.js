@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export const POST = async (req) => {
   try {
     const { title, content, userId, image } = await req.json();
-    if ((!title || !content || !userId, !image)) {
+    if (!title || !content || !userId || !image) {
       return NextResponse.json({
         message: "Please fill all the fields",
         status: 400,
