@@ -31,29 +31,25 @@ export const POST = async (req) => {
     });
   }
 };
-
 export const GET = async (_) => {
   try {
-    const post = await prisma.post.findMany();
-    if (!post) {
+    const posts = await prisma.post.findMany({
+      include: {
+        user: {
+          select: { name: true, email: true },
+        },
+      },
+    });
+    if (!posts) {
       return NextResponse.json({
         status: 404,
         message: "Posts not found",
       });
     }
-    const postsWithUser = await Promise.all(
-      post.map(async (post) => {
-        const user = await prisma.user.findUnique({
-          where: { id: post.userId },
-        });
-        const { name, email } = user;
-        return { ...post, user: { name, email } };
-      })
-    );
     return NextResponse.json({
       status: 200,
       message: "Posts fetched successfully",
-      data: postsWithUser,
+      data: posts,
     });
   } catch (error) {
     return NextResponse.json({
