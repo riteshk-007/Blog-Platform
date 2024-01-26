@@ -2,7 +2,6 @@
 import Pagginate from "@/utils/Pagginate";
 import AllBlogs from "./_components/AllBlogs";
 import WelcomeBanner from "./_components/WelcomeBanner";
-import Editor from "../_components/Editor";
 import { useSelector } from "react-redux";
 
 const Home = () => {
@@ -14,11 +13,9 @@ const Home = () => {
         <WelcomeBanner />
         <AllBlogs />
       </div>
-      <div>
-        <Editor />
-      </div>
+
       <div className="col-span-2 flex items-center justify-center my-5">
-        {post?.length > 0 && <Pagginate />}
+        {post?.length > 8 && <Pagginate />}
       </div>
     </div>
   );

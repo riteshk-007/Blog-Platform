@@ -22,6 +22,10 @@ const Post = () => {
     dispatch(deletePost(id));
     router.push("/");
   };
+  // cloudinary.v2.api
+  // .delete_resources(['ronc2ktu8zirsobrbxff'],
+  //   { type: 'upload', resource_type: 'image' })
+  // .then(console.log);
 
   const handleUpdate = () => {
     // update post
