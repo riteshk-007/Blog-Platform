@@ -20,7 +20,7 @@ const BlogCard = ({ blog }) => {
         {blog?.title}
       </h3>
       <div className="flex w-full justify-between items-center text-xs text-gray-700 dark:text-gray-500 mb-2 px-4">
-        <p> Author : Ritesh </p>
+        <p> Author : {blog?.user?.name}</p>
         <p>
           Date :
           {new Date(blog?.createdAt).toLocaleDateString("en-IN", {
