@@ -19,7 +19,7 @@ const AllBlogs = () => {
     setBlogs(blogPOST);
   }, [blogPOST]);
 
-  if (!loading) {
+  if (loading) {
     return (
       <div className="dark:bg-gray-900 bg-gray-100 rounded-xl p-5 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5">
         <BlogCardSkeleton />
@@ -36,7 +36,7 @@ const AllBlogs = () => {
           ))}
         </div>
       ) : (
-        <div className="flex justify-center items-center w-full h-full">
+        <div className="dark:bg-gray-900 bg-gray-100 rounded-xl p-5 flex justify-center mt-5 items-center w-full h-full">
           <h1 className="text-2xl text-gray-500 dark:text-gray-400 font-semibold">
             No Blogs Found
           </h1>

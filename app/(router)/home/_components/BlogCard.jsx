@@ -1,27 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const BlogCard = () => {
+const BlogCard = ({ blog }) => {
   return (
     <Link
-      href={"/home/1"}
+      href={`/home/${blog?.id}`}
       className=" bg-white dark:bg-black w-full rounded-xl shadow-md  flex flex-col overflow-hidden"
     >
-      <div className="w-full h-40 overflow-hidden">
+      <div className="h-40  flex items-center justify-center overflow-hidden">
         <Image
-          src={"/panda.png"}
-          width={80}
-          height={70}
-          alt="blog Image"
-          className="m-2"
+          src={blog?.image}
+          width={380}
+          height={140}
+          alt={blog?.title}
+          objectFit="fill"
         />
       </div>
       <h3 className="font-bold capitalize truncate overflow-hidden w-full py-3 px-5">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        {blog?.title}
       </h3>
       <div className="flex w-full justify-between items-center text-xs text-gray-700 dark:text-gray-500 mb-2 px-4">
         <p> Author : Ritesh </p>
-        <p>Date : 17/01/2024 </p>
+        <p>
+          Date :
+          {new Date(blog?.createdAt).toLocaleDateString("en-IN", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </p>
       </div>
     </Link>
   );
