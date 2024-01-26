@@ -5,7 +5,6 @@ import axios from "axios";
 export const createPost = createAsyncThunk(
   "post/create",
   async (data, thunkAPI) => {
-    console.log(data);
     try {
       const response = await axios.post("/api/post", {
         title: data?.postDetail?.title,
@@ -13,7 +12,6 @@ export const createPost = createAsyncThunk(
         userId: data?.postDetail?.userId,
         image: data?.postDetail?.image,
       });
-      console.log(response.data);
       if (response.data.status === 201) {
         return response.data;
       } else {

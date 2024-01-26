@@ -6,7 +6,8 @@ export function middleware(request) {
 
   if (
     request.nextUrl.pathname === "/api/login" ||
-    request.nextUrl.pathname === "/api/signup"
+    request.nextUrl.pathname === "/api/signup" ||
+    request.nextUrl.pathname === "/api/post"
   ) {
     return null;
   }
