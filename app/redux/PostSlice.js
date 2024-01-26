@@ -40,6 +40,23 @@ export const getAllPosts = createAsyncThunk(
     }
   }
 );
+// get signle post details
+export const getSignlePostDetails = createAsyncThunk(
+  "post/getSignlePostDetails",
+  async (id, thunkAPI) => {
+    try {
+      const response = await axios.get(`/api/post/${id}`);
+      if (response.data.status === 200) {
+        return response.data;
+      } else {
+        return thunkAPI.rejectWithValue(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.toString());
+    }
+  }
+);
 
 export const PostSlice = createSlice({
   name: "post",
@@ -82,6 +99,19 @@ export const PostSlice = createSlice({
         state.blogs = action.payload;
       })
       .addCase(getAllPosts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+    // get signle post details
+    builder
+      .addCase(getSignlePostDetails.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getSignlePostDetails.fulfilled, (state, action) => {
+        state.loading = false;
+        state.post = action.payload;
+      })
+      .addCase(getSignlePostDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
