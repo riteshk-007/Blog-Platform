@@ -23,6 +23,7 @@
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.311.0",
     "next": "14.0.4",
+    "next-cloudinary": "^5.20.0",
     "next-themes": "^0.2.1",
     "react-loading": "^2.0.3",
     "react-redux": "^9.1.0",

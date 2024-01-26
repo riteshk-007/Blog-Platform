@@ -19,7 +19,7 @@ export const POST = async (req) => {
     });
 
     return NextResponse.json({
-      status: 200,
+      status: 201,
       message: "Post created successfully",
       data: newpost,
     });
