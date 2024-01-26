@@ -14,6 +14,7 @@ export const POST = async (req) => {
       data: {
         title,
         content,
+        image,
         userId,
       },
     });

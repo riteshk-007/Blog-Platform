@@ -5,6 +5,7 @@ import axios from "axios";
 export const createPost = createAsyncThunk(
   "post/create",
   async (data, thunkAPI) => {
+    console.log(data);
     try {
       const response = await axios.post("/api/post", {
         title: data?.postDetail?.title,
@@ -12,7 +13,25 @@ export const createPost = createAsyncThunk(
         userId: data?.postDetail?.userId,
         image: data?.postDetail?.image,
       });
+      console.log(response.data);
       if (response.data.status === 201) {
+        return response.data;
+      } else {
+        return thunkAPI.rejectWithValue(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.toString());
+    }
+  }
+);
+// Get all posts
+export const getAllPosts = createAsyncThunk(
+  "post/getAllPosts",
+  async (thunkAPI) => {
+    try {
+      const response = await axios.get("/api/post");
+      if (response.data.status === 200) {
         return response.data;
       } else {
         return thunkAPI.rejectWithValue(response.data);
@@ -26,7 +45,13 @@ export const createPost = createAsyncThunk(
 
 export const PostSlice = createSlice({
   name: "post",
-  initialState: { post: {}, loading: false, error: null, show: false },
+  initialState: {
+    post: {},
+    loading: false,
+    error: null,
+    show: false,
+    blogs: [],
+  },
   reducers: {
     showPost: (state) => {
       state.show = true;
@@ -46,6 +71,19 @@ export const PostSlice = createSlice({
         state.post = action.payload;
       })
       .addCase(createPost.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+    // get all posts
+    builder
+      .addCase(getAllPosts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getAllPosts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.blogs = action.payload;
+      })
+      .addCase(getAllPosts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
