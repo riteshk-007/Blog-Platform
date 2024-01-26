@@ -6,7 +6,7 @@ export const createPost = createAsyncThunk(
   "post/create",
   async (data, thunkAPI) => {
     try {
-      const response = await axios.post("/api/createpost", {
+      const response = await axios.post("/api/post", {
         title: data?.postDetail?.title,
         content: data?.postDetail?.description,
         userId: data?.postDetail?.userId,

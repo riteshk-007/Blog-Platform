@@ -30,3 +30,19 @@ export const POST = async (req) => {
     });
   }
 };
+
+export const GET = async (req) => {
+  try {
+    const post = await prisma.post.findMany();
+    return NextResponse.json({
+      status: 200,
+      message: "Posts fetched successfully",
+      data: post,
+    });
+  } catch (error) {
+    return NextResponse.json({
+      status: 500,
+      message: error.message,
+    });
+  }
+};
