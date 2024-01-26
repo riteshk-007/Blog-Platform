@@ -5,20 +5,22 @@ import { useEffect } from "react";
 import CommentSection from "../_components/CommentSection";
 import { SquarePen, Trash } from "lucide-react";
 import Dialog from "../../_components/Dialog";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { getSignlePostDetails } from "@/app/redux/PostSlice";
+import { deletePost, getSignlePostDetails } from "@/app/redux/PostSlice";
 
 const Post = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(getSignlePostDetails(id));
   }, [id, dispatch]);
 
   const handleDelete = () => {
-    // delete post
+    dispatch(deletePost(id));
+    router.push("/");
   };
 
   const handleUpdate = () => {
@@ -80,8 +82,8 @@ const Post = () => {
           </Button>
           <span>
             <Dialog
-              onClick={handleDelete}
               item={<Trash strokeWidth={3} size={17} />}
+              onYes={handleDelete}
             />
           </span>
         </div>

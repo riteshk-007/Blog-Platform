@@ -57,7 +57,23 @@ export const getSignlePostDetails = createAsyncThunk(
     }
   }
 );
-
+// delete single post
+export const deletePost = createAsyncThunk(
+  "post/deletePost",
+  async (id, thunkAPI) => {
+    try {
+      const response = await axios.delete(`/api/post/${id}`);
+      if (response.data.status === 200) {
+        return response.data;
+      } else {
+        return thunkAPI.rejectWithValue(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.toString());
+    }
+  }
+);
 export const PostSlice = createSlice({
   name: "post",
   initialState: {
@@ -112,6 +128,19 @@ export const PostSlice = createSlice({
         state.post = action.payload;
       })
       .addCase(getSignlePostDetails.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+    // delete single post
+    builder
+      .addCase(deletePost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.post = action.payload;
+      })
+      .addCase(deletePost.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

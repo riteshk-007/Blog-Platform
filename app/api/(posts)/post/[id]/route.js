@@ -25,3 +25,22 @@ export const GET = async (_, { params }) => {
     });
   }
 };
+export const DELETE = async (_, { params }) => {
+  try {
+    const post = await prisma.post.delete({
+      where: {
+        id: params.id,
+      },
+    });
+    return NextResponse.json({
+      status: 200,
+      message: "Post deleted successfully",
+      data: post,
+    });
+  } catch (error) {
+    return NextResponse.json({
+      status: 500,
+      message: error.message,
+    });
+  }
+};
