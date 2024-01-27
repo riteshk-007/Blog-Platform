@@ -1,26 +1,24 @@
 "use client";
 import { getUser, logoutUser } from "@/app/redux/UserSignupLoginSlice";
-import { ModeToggle } from "@/components/themeToggle";
 import {
-  AlignRight,
   BadgeIcon,
   BookOpen,
   GraduationCap,
   LogIn,
   LogOut,
+  X,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const SideNav = () => {
-  const [show, setShow] = useState(false);
+const SideNav = ({ show, setShow }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const user = useSelector((state) => state.user.entity);
-  useEffect(() => {
+  useLayoutEffect(() => {
     dispatch(getUser());
   }, [dispatch]);
 
@@ -30,6 +28,7 @@ const SideNav = () => {
       name: "All Blogs",
       icon: BookOpen,
       url: "/home",
+      action: () => setShow(!show),
     },
     user && user?.data
       ? {
@@ -37,6 +36,7 @@ const SideNav = () => {
           name: "My Blogs",
           icon: BadgeIcon,
           url: "/myblog",
+          action: () => setShow(!show),
         }
       : null,
     {
@@ -44,6 +44,7 @@ const SideNav = () => {
       name: "About Us",
       icon: GraduationCap,
       url: "/home",
+      action: () => setShow(!show),
     },
     user && user?.data
       ? {
@@ -62,24 +63,25 @@ const SideNav = () => {
           name: "Login",
           icon: LogIn,
           url: "/signup",
+          action: () => setShow(!show),
         },
   ].filter(Boolean);
 
   return (
     <>
-      <button
-        className={`fixed md:hidden z-50  top-0 right-0 m-4 dark:bg-gray-700 bg-white rounded-full p-2 shadow-lg ${
-          show ? "md:hidden" : ""
-        }`}
-        onClick={() => setShow(!show)}
-      >
-        <AlignRight />
-      </button>
       <div
-        className={`dark:bg-black  z-auto p-5 h-screen   bg-gray-100 shadow-sm border transition-all duration-500 ease-in-out transform ${
+        className={`dark:bg-black sm:w-64 fixed top-0    z-[100] p-5 h-screen  bg-gray-100 shadow-sm border transition-all duration-500 ease-in-out transform ${
           show ? "translate-x-0" : "-translate-x-full md:translate-x-0 "
         }`}
       >
+        <button
+          className={` flex md:hidden z-50 dark:bg-gray-900 fixed right-4 top-4 bg-white rounded-md p-[5px] shadow-md ${
+            show ? "md:hidden" : ""
+          }`}
+          onClick={() => setShow(!show)}
+        >
+          <X />
+        </button>
         <Link href={"/home"} className="flex items-center justify-center">
           <Image src="/logo.svg" width={150} height={80} alt="logo" />
         </Link>
@@ -102,13 +104,6 @@ const SideNav = () => {
               </button>
             );
           })}
-        </div>
-
-        <div className="w-full h-1/2  flex items-start justify-start py-5 ">
-          <span className="w-full flex items-center justify-start gap-5 text-gray-700 dark:text-gray-100 cursor-pointer">
-            Theme
-            <ModeToggle />
-          </span>
         </div>
       </div>
     </>

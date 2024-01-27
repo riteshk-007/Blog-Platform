@@ -1,16 +1,18 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import SideNav from "./_components/SideNav";
 import Header from "./_components/Header";
 import Editor from "./_components/Editor";
 
-const layout = ({ children }) => {
+const Layout = ({ children }) => {
+  const [show, setShow] = useState(false);
   return (
     <div>
-      <div className="sm:w-64  sm:block fixed">
-        <SideNav />
+      <div>
+        <SideNav show={show} setShow={setShow} />
       </div>
-      <div className="md:ml-64">
-        <Header />
+      <div className="md:ml-64 z-20">
+        <Header show={show} setShow={setShow} />
         <div>
           <Editor />
         </div>
@@ -20,4 +22,4 @@ const layout = ({ children }) => {
   );
 };
 
-export default layout;
+export default Layout;
