@@ -74,6 +74,21 @@ export const deletePost = createAsyncThunk(
     }
   }
 );
+
+// search post data
+export const searchPost = createAsyncThunk("post/searchPost", async (data) => {
+  try {
+    const response = await axios.get(`/api/search?q=${data}`);
+    if (response.data.status === 200) {
+      return response.data;
+    } else {
+      return response.data;
+    }
+  } catch (error) {
+    console.log(error);
+    return error.toString();
+  }
+});
 export const PostSlice = createSlice({
   name: "post",
   initialState: {
@@ -141,6 +156,19 @@ export const PostSlice = createSlice({
         state.post = action.payload;
       })
       .addCase(deletePost.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+    // search post data
+    builder
+      .addCase(searchPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(searchPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.blogs = action.payload;
+      })
+      .addCase(searchPost.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

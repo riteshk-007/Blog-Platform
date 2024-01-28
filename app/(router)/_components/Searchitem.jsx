@@ -8,7 +8,7 @@ const Searchitem = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (searchQuery) {
+    if (searchQuery !== "" && searchQuery.length > 2) {
       router.push(`/search?q=${searchQuery}`);
     }
     setSearchQuery("");
