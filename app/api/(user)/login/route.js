@@ -61,6 +61,8 @@ export const GET = async (req) => {
         id: true,
         name: true,
         email: true,
+        createdAt: true,
+        posts: true,
       },
     });
     if (!user) {

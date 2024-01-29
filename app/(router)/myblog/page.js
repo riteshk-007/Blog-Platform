@@ -5,24 +5,37 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Dialog from "../_components/Dialog";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "@/app/redux/UserSignupLoginSlice";
+import BlogCard from "../home/_components/BlogCard";
+import BlogCardSkeleton from "../home/_components/BlogCardSkeleton";
 
-const UserProfile = ({ user, blogs }) => {
+const UserProfile = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+  const user = useSelector((state) => state.user.entity.data);
+  const loading = useSelector((state) => state.user.loading);
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 dark:bg-gradient-to-r dark:from-gray-800  dark:to-black bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">
+    <div className="flex p-3 flex-col items-center justify-center min-h-screen py-2 dark:bg-gradient-to-r dark:from-gray-800  dark:to-black bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">
       <div className="max-w-4xl w-full space-y-8 dark:bg-black bg-white p-10 rounded-xl shadow-lg">
         <div className="items-center justify-center w-full ">
           <div className="flex flex-col w-full items-center justify-center ">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-200">
-              {/* {user.name} */}
-              Ritesh
+              {user?.name}
             </h2>
             <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
-              {/* {user.email} */}
-              Test@gmail.com
+              {user?.email}
             </p>
             <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
-              Account created on: 12 May 2014
-              {/* {user.createdDate} */}
+              Account created on:{" "}
+              {new Date(user?.createdAt).toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
             </p>
             <div className="mt-4 flex justify-center items-center gap-5">
               <Button variant="update">
@@ -38,78 +51,17 @@ const UserProfile = ({ user, blogs }) => {
           </div>
         </div>
       </div>
-      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 p-5">
-        {/* Blog card */}
-        {/* 1 */}
-        <Link
-          href={"/home/1"}
-          className="dark:bg-black bg-white w-full rounded-xl shadow-md flex flex-col overflow-hidden"
-        >
-          <div className="w-full h-64 overflow-hidden">
-            <Image
-              src={"/post.png"}
-              width={1780}
-              height={500}
-              alt="blog Image"
-              loading="lazy"
-              className="object-cover w-full h-full object-center rounded-lg"
-            />
-          </div>
-          <h3 className="font-bold capitalize truncate overflow-hidden w-full py-3 px-5">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </h3>
-          <div className="flex w-full justify-between items-center text-xs text-gray-700 dark:text-gray-400 mb-2 px-4">
-            <p> Author : Ritesh </p>
-            <p>Date : 17/01/2024 </p>
-          </div>
-        </Link>
-        {/* 2 */}
-        <Link
-          href={"/home/1"}
-          className="dark:bg-black bg-white w-full rounded-xl shadow-md flex flex-col overflow-hidden"
-        >
-          <div className="w-full h-64 overflow-hidden">
-            <Image
-              src={"/post.png"}
-              width={1780}
-              height={500}
-              alt="blog Image"
-              loading="lazy"
-              className="object-cover w-full h-full object-center rounded-lg"
-            />
-          </div>
-          <h3 className="font-bold capitalize truncate overflow-hidden w-full py-3 px-5">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </h3>
-          <div className="flex w-full justify-between items-center text-xs text-gray-700 dark:text-gray-400 mb-2 px-4">
-            <p> Author : Ritesh </p>
-            <p>Date : 17/01/2024 </p>
-          </div>
-        </Link>
-        {/* 3 */}
-        <Link
-          href={"/home/1"}
-          className="dark:bg-black bg-white w-full rounded-xl shadow-md flex flex-col overflow-hidden"
-        >
-          <div className="w-full h-64 overflow-hidden">
-            <Image
-              src={"/post.png"}
-              width={1780}
-              height={500}
-              alt="blog Image"
-              loading="lazy"
-              className="object-cover w-full h-full object-center rounded-lg"
-            />
-          </div>
-          <h3 className="font-bold capitalize truncate overflow-hidden w-full py-3 px-5">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </h3>
-          <div className="flex w-full justify-between items-center text-xs text-gray-700 dark:text-gray-400 mb-2 px-4">
-            <p> Author : Ritesh </p>
-            <p>Date : 17/01/2024 </p>
-          </div>
-        </Link>
-      </div>
+      {loading ? (
+        <div className="w-full dark:bg-black bg-transparent rounded-xl p-5 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5">
+          <BlogCardSkeleton />
+        </div>
+      ) : (
+        <div className="dark:bg-gray-900 bg-transparent rounded-xl p-5 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5">
+          {user?.posts?.map((blog, i) => (
+            <BlogCard blog={blog} key={i} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
