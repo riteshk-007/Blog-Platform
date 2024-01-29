@@ -2,16 +2,13 @@
 import { useState } from "react";
 import Login from "../_components/Login";
 import Signup from "../_components/Signup";
+import { useSelector } from "react-redux";
 
 const LoginSignUp = () => {
-  const [show, setShow] = useState(false);
+  const show = useSelector((state) => state.user.show);
   return (
     <div className="dark:bg-black bg-white flex items-center justify-center p-5  w-full h-screen">
-      {!show ? (
-        <Login setShow={setShow} show={show} />
-      ) : (
-        <Signup setShow={setShow} show={show} />
-      )}
+      {!show ? <Login /> : <Signup />}
     </div>
   );
 };

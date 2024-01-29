@@ -1,12 +1,12 @@
 "use client";
 
-import { createUser } from "@/app/redux/UserSignupLoginSlice";
+import { HideLoginSign, createUser } from "@/app/redux/UserSignupLoginSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactLoading from "react-loading";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-const Signup = ({ setShow, show }) => {
+const Signup = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -21,10 +21,9 @@ const Signup = ({ setShow, show }) => {
   useEffect(() => {
     if (user?.status === 201) {
       setShowError(false);
-      setShow(!show);
       setData({ name: "", email: "", password: "" });
     }
-  }, [user, setShow, show]);
+  }, [user]);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -32,6 +31,7 @@ const Signup = ({ setShow, show }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createUser(data));
+    dispatch(HideLoginSign());
     setData({ name: "", email: "", password: "" });
   };
   useEffect(() => {
@@ -120,7 +120,7 @@ const Signup = ({ setShow, show }) => {
               <span
                 onClick={() => {
                   setShowError(false);
-                  setShow(!show);
+                  dispatch(HideLoginSign());
                 }}
                 className="font-medium text-gray-900 dark:text-gray-500 cursor-pointer"
               >

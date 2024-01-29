@@ -90,8 +90,21 @@ export const deleteUserPost = createAsyncThunk(
 // user slice
 export const UserSignupLoginSlice = createSlice({
   name: "user",
-  initialState: { entity: {}, loading: false, error: null, user: {} },
-  reducers: {},
+  initialState: {
+    entity: {},
+    loading: false,
+    error: null,
+    user: {},
+    show: false,
+  },
+  reducers: {
+    ShowLoginSign: (state) => {
+      state.show = true;
+    },
+    HideLoginSign: (state) => {
+      state.show = false;
+    },
+  },
   extraReducers: (builder) => {
     // create a new user
     builder
@@ -160,4 +173,6 @@ export const UserSignupLoginSlice = createSlice({
       });
   },
 });
+
+export const { ShowLoginSign, HideLoginSign } = UserSignupLoginSlice.actions;
 export default UserSignupLoginSlice.reducer;

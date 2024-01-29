@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactLoading from "react-loading";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { loginUser } from "@/app/redux/UserSignupLoginSlice";
+import { ShowLoginSign, loginUser } from "@/app/redux/UserSignupLoginSlice";
 import { useRouter } from "next/navigation";
 const Login = ({ setShow, show }) => {
   const [data, setData] = useState({
@@ -105,7 +105,7 @@ const Login = ({ setShow, show }) => {
               <span
                 onClick={() => {
                   setShowError(false);
-                  setShow(!show);
+                  dispatch(ShowLoginSign());
                 }}
                 className="font-medium text-gray-900 dark:text-gray-500 cursor-pointer"
               >

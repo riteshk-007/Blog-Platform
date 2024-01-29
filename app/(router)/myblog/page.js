@@ -21,7 +21,6 @@ const UserProfile = () => {
 
   const handleDeleteUser = () => {
     dispatch(deleteUserPost(user.id));
-
     router.push("/signup");
   };
   return (
