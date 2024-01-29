@@ -16,7 +16,7 @@ const Signup = ({ setShow, show }) => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.user.error);
-  const user = useSelector((state) => state.user.entity);
+  const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
     if (user?.status === 201) {
@@ -32,6 +32,7 @@ const Signup = ({ setShow, show }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createUser(data));
+    setData({ name: "", email: "", password: "" });
   };
   useEffect(() => {
     if (error?.status === 400) {

@@ -69,7 +69,7 @@ export const logoutUser = createAsyncThunk("user/logout", async (thunkAPI) => {
 // user slice
 export const UserSignupLoginSlice = createSlice({
   name: "user",
-  initialState: { entity: {}, loading: false, error: null },
+  initialState: { entity: {}, loading: false, error: null, user: {} },
   reducers: {},
   extraReducers: (builder) => {
     // create a new user
@@ -79,7 +79,7 @@ export const UserSignupLoginSlice = createSlice({
       })
       .addCase(createUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.entity = action.payload;
+        state.user = action.payload;
       })
       .addCase(createUser.rejected, (state, action) => {
         state.loading = false;

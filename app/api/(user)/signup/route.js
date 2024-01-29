@@ -10,7 +10,12 @@ export const POST = async (req) => {
         status: 400,
       });
     }
-
+    if (password.length < 6) {
+      return NextResponse.json({
+        message: "Password should be minimum 6 characters",
+        status: 400,
+      });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
     const emailCheck = await prisma.user.findUnique({
       where: {
