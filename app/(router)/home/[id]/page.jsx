@@ -22,17 +22,14 @@ const Post = () => {
     dispatch(deletePost(id));
     router.push("/");
   };
-  // cloudinary.v2.api
-  // .delete_resources(['ronc2ktu8zirsobrbxff'],
-  //   { type: 'upload', resource_type: 'image' })
-  // .then(console.log);
 
   const handleUpdate = () => {
     // update post
   };
 
-  const post = useSelector((state) => state.post.post.data);
-  const loading = useSelector((state) => state.post.loading);
+  const post = useSelector((state) => state?.post?.post?.data);
+  const loading = useSelector((state) => state?.post?.loading);
+  const userId = useSelector((state) => state?.user?.entity?.data?.id);
   if (loading) {
     return (
       <div className="flex flex-col bg-gray-100 dark:bg-gray-900 rounded-lg p-5 mt-5 mx-5 animate-pulse">
@@ -64,6 +61,19 @@ const Post = () => {
           className="object-contain w-full h-full object-center rounded-lg"
         />
       </div>
+      {post?.userId === userId && (
+        <div className="flex items-center justify-center">
+          <Button onClick={handleUpdate} variant="update" className="m-2">
+            <SquarePen strokeWidth={3} size={17} />
+          </Button>
+          <span>
+            <Dialog
+              item={<Trash strokeWidth={3} size={17} />}
+              onYes={handleDelete}
+            />
+          </span>
+        </div>
+      )}
       <h2 className="text-2xl font-bold mt-4">{post?.title}</h2>
       <p className="text-gray-700 mt-2 dark:text-gray-200">{post?.content}</p>
       <div className="flex justify-between items-center mt-4">
@@ -79,17 +89,6 @@ const Post = () => {
               year: "numeric",
             })}
           </p>
-        </div>
-        <div className="flex items-center justify-center">
-          <Button onClick={handleUpdate} variant="update" className="m-2">
-            <SquarePen strokeWidth={3} size={17} />
-          </Button>
-          <span>
-            <Dialog
-              item={<Trash strokeWidth={3} size={17} />}
-              onYes={handleDelete}
-            />
-          </span>
         </div>
       </div>
 
