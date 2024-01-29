@@ -7,7 +7,9 @@ export function middleware(request) {
   if (
     request.nextUrl.pathname === "/api/login" ||
     request.nextUrl.pathname === "/api/signup" ||
-    request.nextUrl.pathname === "/api/post"
+    request.nextUrl.pathname === "/api/post" ||
+    request.nextUrl.pathname === "/api/search" ||
+    /^\/api\/post\/\w+$/.test(request.nextUrl.pathname)
   ) {
     return null;
   }
@@ -35,11 +37,13 @@ export function middleware(request) {
         );
       } else if (!AuthToken && request.nextUrl.pathname.startsWith("/home")) {
         return NextResponse.redirect(new URL("/signup", request.nextUrl));
+      } else if (!AuthToken && request.nextUrl.pathname.startsWith("/myblog")) {
+        return NextResponse.redirect(new URL("/signup", request.nextUrl));
       }
     }
   }
 }
 
 export const config = {
-  matcher: ["/", "/signup", "/api/:path*"],
+  matcher: ["/", "/signup", "/myblog", "/api/:path*"],
 };
