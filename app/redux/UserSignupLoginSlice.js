@@ -66,6 +66,27 @@ export const logoutUser = createAsyncThunk("user/logout", async (thunkAPI) => {
     return thunkAPI.rejectWithValue(error);
   }
 });
+
+// delete User and related posts
+export const deleteUserPost = createAsyncThunk(
+  "post/deleteUserPost",
+  async (id, thunkAPI) => {
+    try {
+      // const dispatch = useDispatch();
+      const user = await axios.post("/api/delete", {
+        userId: id,
+      });
+      if (user.data.status === 200) {
+        return user.data;
+      } else {
+        return thunkAPI.rejectWithValue(user.data);
+      }
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.toString());
+    }
+  }
+);
 // user slice
 export const UserSignupLoginSlice = createSlice({
   name: "user",
@@ -121,6 +142,19 @@ export const UserSignupLoginSlice = createSlice({
         state.entity = action.payload;
       })
       .addCase(logoutUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+    // delete User and related posts
+    builder
+      .addCase(deleteUserPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteUserPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.entity = action.payload;
+      })
+      .addCase(deleteUserPost.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
