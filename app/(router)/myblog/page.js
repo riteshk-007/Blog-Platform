@@ -1,8 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { SquarePen, Trash } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import Dialog from "../_components/Dialog";
 import { useEffect } from "react";
@@ -18,6 +16,11 @@ const UserProfile = () => {
   }, [dispatch]);
   const user = useSelector((state) => state.user.entity.data);
   const loading = useSelector((state) => state.user.loading);
+
+  const handleDeleteUser = () => {
+    console.log(user.id);
+  };
+
   return (
     <div className="flex p-3 flex-col items-center justify-center min-h-screen py-2 dark:bg-gradient-to-r dark:from-gray-800  dark:to-black bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">
       <div className="max-w-4xl w-full space-y-8 dark:bg-black bg-white p-10 rounded-xl shadow-lg">
@@ -43,7 +46,7 @@ const UserProfile = () => {
               </Button>
               <span>
                 <Dialog
-                  onYes={() => console.log("yes")}
+                  onYes={handleDeleteUser}
                   item={<Trash strokeWidth={3} size={17} />}
                 />
               </span>
