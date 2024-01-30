@@ -92,7 +92,7 @@ const Post = () => {
         </div>
       </div>
 
-      <CommentSection />
+      <CommentSection postId={post?.id} userId={userId} />
     </div>
   );
 };
