@@ -9,6 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, getSignlePostDetails } from "@/app/redux/PostSlice";
 import Link from "next/link";
+import EditProfile from "../../_components/EditProfile";
 
 const Post = () => {
   const { id } = useParams();
@@ -22,10 +23,6 @@ const Post = () => {
   const handleDelete = () => {
     dispatch(deletePost(id));
     router.push("/");
-  };
-
-  const handleUpdate = () => {
-    // update post
   };
 
   const post = useSelector((state) => state?.post?.post?.data);
@@ -63,10 +60,7 @@ const Post = () => {
         />
       </div>
       {post?.userId === userId && (
-        <div className="flex items-center justify-center">
-          <Button onClick={handleUpdate} variant="update" className="m-2">
-            <SquarePen strokeWidth={3} size={17} />
-          </Button>
+        <div className="flex items-center justify-center mt-5">
           <span>
             <Dialog
               item={<Trash strokeWidth={3} size={17} />}
@@ -75,8 +69,24 @@ const Post = () => {
           </span>
         </div>
       )}
-      <h2 className="text-2xl font-bold mt-4">{post?.title}</h2>
-      <p className="text-gray-700 mt-2 dark:text-gray-200">{post?.content}</p>
+      <h2 className="text-2xl font-bold mt-4 flex items-center justify-start">
+        {post?.title}{" "}
+        {post?.userId === userId && (
+          <span className="m-3 text-sm font-normal flex items-center justify-between px-2 dark:bg-gray-800  bg-gray-200 rounded-lg ">
+            <p>Edit Title:</p>
+            <EditProfile name={"Title"} value={post?.title} />
+          </span>
+        )}
+      </h2>
+      <div className="text-gray-700 mt-2 dark:text-gray-200 flex-col flex">
+        {post?.userId === userId && (
+          <span className="m-3 text-sm font-normal flex items-center justify-between px-2 w-44 dark:bg-gray-800  bg-gray-200 rounded-lg ">
+            <p>Edit Paragraph: </p>
+            <EditProfile name={"Paragraph"} value={post?.content} />
+          </span>
+        )}
+        {post?.content}
+      </div>
       <div className="flex justify-between items-center mt-4">
         <div>
           <p className="text-sm dark:text-gray-300 text-gray-500">

@@ -1,6 +1,5 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { SquarePen, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import React from "react";
 import Dialog from "../_components/Dialog";
 import { useEffect } from "react";
@@ -9,6 +8,7 @@ import { deleteUserPost, getUser } from "@/app/redux/UserSignupLoginSlice";
 import BlogCard from "../home/_components/BlogCard";
 import BlogCardSkeleton from "../home/_components/BlogCardSkeleton";
 import { useRouter } from "next/navigation";
+import EditProfile from "../_components/EditProfile";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -30,9 +30,15 @@ const UserProfile = () => {
           <div className="flex flex-col w-full items-center justify-center ">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-200">
               {user?.name}
+              <span className="m-3">
+                <EditProfile name={"Name"} value={user?.name} />
+              </span>
             </h2>
             <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
               {user?.email}
+              <span className="m-3">
+                <EditProfile name={"Email"} value={user?.email} />
+              </span>
             </p>
             <div className="mt-2 text-lg text-gray-600 dark:text-gray-400 bg-white dark:bg-black p-4 rounded shadow flex items-center flex-col justify-center">
               <h2 className="font-bold text-xl mb-2">Account Information</h2>
@@ -48,10 +54,7 @@ const UserProfile = () => {
                 })}
               </p>
             </div>
-            <div className="mt-4 flex justify-center items-center gap-5">
-              <Button variant="update">
-                <SquarePen strokeWidth={3} size={17} />
-              </Button>
+            <div className="mt-4 flex justify-center items-center">
               <span>
                 <Dialog
                   onYes={handleDeleteUser}
