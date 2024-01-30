@@ -8,6 +8,7 @@ import Dialog from "../../_components/Dialog";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, getSignlePostDetails } from "@/app/redux/PostSlice";
+import Link from "next/link";
 
 const Post = () => {
   const { id } = useParams();
@@ -92,7 +93,25 @@ const Post = () => {
         </div>
       </div>
 
-      <CommentSection postId={post?.id} userId={userId} />
+      {userId ? (
+        <CommentSection postId={post?.id} userId={userId} />
+      ) : (
+        <div className="flex w-full items-center justify-center flex-col">
+          <p
+            className=" dark:text-gray-300 text-gray-500 font-semibold text-lg md:text-2xl"
+            style={{ textAlign: "center" }}
+          >
+            Please login to view the comment section.
+          </p>
+          <Link
+            href={"/signup"}
+            className="text-gray-700 dark:text-gray-200 font-semibold underline"
+            style={{ textAlign: "center" }}
+          >
+            Login
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
