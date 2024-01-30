@@ -21,6 +21,25 @@ export const createComment = createAsyncThunk(
     }
   }
 );
+// get post comments
+export const getComments = createAsyncThunk(
+  "comment/get",
+  async (postId, thunkAPI) => {
+    try {
+      const comment = await axios.post("/api/getcomment", {
+        postId: postId,
+      });
+      if (comment.data.status === 200) {
+        return comment.data.data;
+      } else {
+        return thunkAPI.rejectWithValue(comment.data);
+      }
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.toString());
+    }
+  }
+);
 export const CommentSlice = createSlice({
   name: "comment",
   initialState: {
@@ -40,6 +59,19 @@ export const CommentSlice = createSlice({
         state.comments = action.payload;
       })
       .addCase(createComment.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+    // get post comments
+    builder
+      .addCase(getComments.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getComments.fulfilled, (state, action) => {
+        state.loading = false;
+        state.comments = action.payload;
+      })
+      .addCase(getComments.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
