@@ -40,6 +40,25 @@ export const getComments = createAsyncThunk(
     }
   }
 );
+// delete comment from post
+export const deleteComment = createAsyncThunk(
+  "comment/deleteComment",
+  async (id, thunkAPI) => {
+    try {
+      const comment = await axios.post("/api/deletecomment", {
+        commentId: id,
+      });
+      if (comment.data.status === 200) {
+        return comment.data.data;
+      } else {
+        return thunkAPI.rejectWithValue(comment.data);
+      }
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.toString());
+    }
+  }
+);
 export const CommentSlice = createSlice({
   name: "comment",
   initialState: {
@@ -72,6 +91,19 @@ export const CommentSlice = createSlice({
         state.comments = action.payload;
       })
       .addCase(getComments.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
+    // delete comment from post
+    builder
+      .addCase(deleteComment.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteComment.fulfilled, (state, action) => {
+        state.loading = false;
+        state.comments = action.payload;
+      })
+      .addCase(deleteComment.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

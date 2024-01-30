@@ -1,5 +1,9 @@
 "use client";
-import { createComment, getComments } from "@/app/redux/CommentSlice";
+import {
+  createComment,
+  deleteComment,
+  getComments,
+} from "@/app/redux/CommentSlice";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
@@ -48,6 +52,11 @@ const CommentSection = ({ userId, postId, post }) => {
     dispatch(getComments(postId));
   }, [dispatch, postId]);
 
+  const commentDelete = (e) => {
+    dispatch(deleteComment(e)).then(() => {
+      dispatch(getComments(postId));
+    });
+  };
   const comments = useSelector((state) => state?.commnet?.comments);
   const loading = useSelector((state) => state?.commnet?.loading);
   return (
@@ -64,7 +73,7 @@ const CommentSection = ({ userId, postId, post }) => {
         <h3 className="text-2xl font-bold mt-4">Comments</h3>
         {loading ? (
           <CommentSkeleton />
-        ) : comments.length > 0 ? (
+        ) : comments?.length > 0 ? (
           comments
             ?.map((comment) => (
               <article
@@ -92,10 +101,7 @@ const CommentSection = ({ userId, postId, post }) => {
                     <button
                       className="inline-flex relative items-center p-2 text-sm font-medium text-center text-gray-500 dark:bg-gray-900 bg-white rounded-lg dark:hover:bg-red-700 hover:bg-red-500 hover:text-white"
                       type="button"
-                      onClick={() => {
-                        console.log(comment.id);
-                        // dispatch(deleteComment(comment.id));
-                      }}
+                      onClick={() => commentDelete(comment?.id)}
                     >
                       <Trash2 size={15} />
                     </button>
