@@ -19,6 +19,10 @@ export const POST = async (req) => {
     await prisma.post.deleteMany({
       where: { userId: userId.userId },
     });
+    // Delete the comments related to the user
+    await prisma.comment.deleteMany({
+      where: { userId: userId.userId },
+    });
     // Delete the user
     await prisma.user.delete({
       where: { id: userId.userId },
