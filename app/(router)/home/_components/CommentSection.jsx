@@ -5,8 +5,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CommentSkeleton from "./CommentSkeleton";
+import { Trash2 } from "lucide-react";
+import { CldOgImage } from "next-cloudinary";
 
-const CommentSection = ({ userId, postId }) => {
+const CommentSection = ({ userId, postId, post }) => {
   const [commentValue, setCommentValue] = useState({
     comment: "",
     userId: "",
@@ -86,20 +88,18 @@ const CommentSection = ({ userId, postId }) => {
                       </time>
                     </p>
                   </div>
-                  <button
-                    className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:bg-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
-                    type="button"
-                  >
-                    <svg
-                      className="w-4 h-4"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 16 3"
+                  {post?.userId == userId && (
+                    <button
+                      className="inline-flex relative items-center p-2 text-sm font-medium text-center text-gray-500 dark:bg-gray-900 bg-white rounded-lg dark:hover:bg-red-700 hover:bg-red-500 hover:text-white"
+                      type="button"
+                      onClick={() => {
+                        console.log(comment.id);
+                        // dispatch(deleteComment(comment.id));
+                      }}
                     >
-                      <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                    </svg>
-                  </button>
+                      <Trash2 size={15} />
+                    </button>
+                  )}
                 </footer>
                 <p className="text-gray-800 dark:text-gray-200 font-semibold">
                   {comment?.content}

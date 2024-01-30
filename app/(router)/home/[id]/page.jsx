@@ -94,7 +94,7 @@ const Post = () => {
       </div>
 
       {userId ? (
-        <CommentSection postId={post?.id} userId={userId} />
+        <CommentSection postId={post?.id} userId={userId} post={post} />
       ) : (
         <div className="flex w-full items-center justify-center flex-col">
           <p
