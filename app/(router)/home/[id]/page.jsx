@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deletePost, getSignlePostDetails } from "@/app/redux/PostSlice";
 import Link from "next/link";
 import EditProfile from "../../_components/EditProfile";
-import { updateTitle } from "@/app/redux/UpdateSlice";
+import { updatePostParagraph, updateTitle } from "@/app/redux/UpdateSlice";
 
 const Post = () => {
   const { id } = useParams();
@@ -41,9 +41,11 @@ const Post = () => {
   };
   // update Paragraph
   useEffect(() => {
-    setPara(post?.para);
-  }, [post?.para]);
-  const udatePara = () => {};
+    setPara(post?.content);
+  }, [post?.content]);
+  const udatePara = () => {
+    dispatch(updatePostParagraph({ id: post?.id, content: para }));
+  };
   if (loading) {
     return (
       <div className="flex flex-col bg-gray-100 dark:bg-gray-900 rounded-lg p-5 mt-5 mx-5 animate-pulse">

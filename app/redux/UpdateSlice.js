@@ -59,6 +59,25 @@ export const updateTitle = createAsyncThunk(
     }
   }
 );
+// update Post para
+export const updatePostParagraph = createAsyncThunk(
+  "post/updatePostParagraph",
+  async (data, thunkAPI) => {
+    try {
+      const postParagraph = await axios.patch("/api/updatePara", {
+        id: data?.id,
+        content: data?.content,
+      });
+      if (postParagraph.status === 200) {
+        return postParagraph.data;
+      } else {
+        return thunkAPI.rejectWithValue(postParagraph.data);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 const updateSlice = createSlice({
   name: "update",
   initialState: {
@@ -103,6 +122,19 @@ const updateSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(updateTitle.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+    // update Post para
+    builder
+      .addCase(updatePostParagraph.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updatePostParagraph.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(updatePostParagraph.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
