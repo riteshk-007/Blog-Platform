@@ -1,18 +1,20 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CommentSection from "../_components/CommentSection";
-import { SquarePen, Trash } from "lucide-react";
+import { Trash } from "lucide-react";
 import Dialog from "../../_components/Dialog";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, getSignlePostDetails } from "@/app/redux/PostSlice";
 import Link from "next/link";
 import EditProfile from "../../_components/EditProfile";
+import { updateTitle } from "@/app/redux/UpdateSlice";
 
 const Post = () => {
   const { id } = useParams();
+  const [title, setTitle] = useState("");
+  const [para, setPara] = useState("");
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -28,6 +30,20 @@ const Post = () => {
   const post = useSelector((state) => state?.post?.post?.data);
   const loading = useSelector((state) => state?.post?.loading);
   const userId = useSelector((state) => state?.user?.entity?.data?.id);
+
+  // update Tilte
+  useEffect(() => {
+    setTitle(post?.title);
+  }, [post?.title]);
+
+  const udateTitle = () => {
+    dispatch(updateTitle({ id: post?.id, title: title }));
+  };
+  // update Paragraph
+  useEffect(() => {
+    setPara(post?.para);
+  }, [post?.para]);
+  const udatePara = () => {};
   if (loading) {
     return (
       <div className="flex flex-col bg-gray-100 dark:bg-gray-900 rounded-lg p-5 mt-5 mx-5 animate-pulse">
@@ -74,7 +90,12 @@ const Post = () => {
         {post?.userId === userId && (
           <span className="m-3 text-sm font-normal flex items-center justify-between px-2 dark:bg-gray-800  bg-gray-200 rounded-lg ">
             <p>Edit Title:</p>
-            <EditProfile name={"Title"} value={post?.title} />
+            <EditProfile
+              name={"Title"}
+              value={title}
+              updateInfo={udateTitle}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </span>
         )}
       </h2>
@@ -82,7 +103,12 @@ const Post = () => {
         {post?.userId === userId && (
           <span className="m-3 text-sm font-normal flex items-center justify-between px-2 w-44 dark:bg-gray-800  bg-gray-200 rounded-lg ">
             <p>Edit Paragraph: </p>
-            <EditProfile name={"Paragraph"} value={post?.content} />
+            <EditProfile
+              name={"Paragraph"}
+              value={para}
+              onChange={(e) => setPara(e.target.value)}
+              updateInfo={udatePara}
+            />
           </span>
         )}
         {post?.content}
