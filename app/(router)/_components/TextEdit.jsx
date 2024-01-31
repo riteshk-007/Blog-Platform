@@ -3,8 +3,10 @@ import { createPost, hidePost } from "@/app/redux/PostSlice";
 import { CldUploadWidget } from "next-cloudinary";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useToast } from "@/components/ui/use-toast";
 
 const TextEdit = () => {
+  const { toast } = useToast();
   const [postDetail, setPostDetails] = useState({
     title: "",
     description: "",
@@ -53,6 +55,11 @@ const TextEdit = () => {
     };
     dispatch(createPost({ postDetail: serializablePostDetail }));
     dispatch(hidePost());
+    toast({
+      title: "Post created",
+      description: "Your post has been created successfully",
+      variant: "success",
+    });
   };
 
   return (

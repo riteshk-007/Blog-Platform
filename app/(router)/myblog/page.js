@@ -33,7 +33,6 @@ const UserProfile = () => {
   }, [user?.name]);
   const updateName = () => {
     dispatch(updateUserName({ id: user?.id, name: name }));
-    window.location.reload();
   };
   // update user email
   useEffect(() => {
@@ -42,7 +41,6 @@ const UserProfile = () => {
 
   const updateEmail = () => {
     dispatch(updateUserEmail({ id: user?.id, email: email }));
-    // window.location.reload();
   };
   return (
     <div className="flex p-3 flex-col items-center justify-center min-h-screen py-2 dark:bg-gradient-to-r dark:from-gray-800  dark:to-black bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">

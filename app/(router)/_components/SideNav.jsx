@@ -13,9 +13,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useToast } from "@/components/ui/use-toast";
 
 const SideNav = ({ show, setShow }) => {
   const dispatch = useDispatch();
+  const { toast } = useToast();
   const router = useRouter();
   const user = useSelector((state) => state.user.entity);
   useLayoutEffect(() => {
@@ -56,6 +58,11 @@ const SideNav = ({ show, setShow }) => {
             dispatch(logoutUser());
             router.refresh();
             setShow(!show);
+            toast({
+              title: "Logged out",
+              description: "You have been logged out successfully",
+              variant: "success",
+            });
           },
         }
       : {

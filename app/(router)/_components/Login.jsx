@@ -6,7 +6,9 @@ import ReactLoading from "react-loading";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ShowLoginSign, loginUser } from "@/app/redux/UserSignupLoginSlice";
 import { useRouter } from "next/navigation";
-const Login = ({ setShow, show }) => {
+import { useToast } from "@/components/ui/use-toast";
+
+const Login = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -17,6 +19,7 @@ const Login = ({ setShow, show }) => {
   const error = useSelector((state) => state.user.error);
   const user = useSelector((state) => state.user.entity);
   const router = useRouter();
+  const { toast } = useToast();
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
@@ -24,6 +27,11 @@ const Login = ({ setShow, show }) => {
     e.preventDefault();
     setShowError(false);
     dispatch(loginUser(data));
+    toast({
+      title: "Login successful",
+      description: "Successfully logged in",
+      variant: "success",
+    });
   };
 
   useEffect(() => {
@@ -39,6 +47,7 @@ const Login = ({ setShow, show }) => {
       router.push("/home");
     }
   }, [user, router]);
+
   return (
     <div className="dark:bg-black bg-white">
       {loading ? (

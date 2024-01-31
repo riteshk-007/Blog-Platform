@@ -12,8 +12,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SquarePen } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const EditProfile = ({ name, value, updateInfo, onChange }) => {
+  const { toast } = useToast();
+  const updateInformation = () => {
+    updateInfo();
+    toast({
+      title: `updated ${name} successfully`,
+      description: `Updated ${name} successfully. Please close this update box and refresh the page to see the changes.`,
+      variant: "success",
+    });
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -59,7 +69,7 @@ const EditProfile = ({ name, value, updateInfo, onChange }) => {
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={updateInfo}>Save</Button>
+          <Button onClick={updateInformation}>Save</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

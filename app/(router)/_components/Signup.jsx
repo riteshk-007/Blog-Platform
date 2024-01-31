@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactLoading from "react-loading";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useToast } from "@/components/ui/use-toast";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -12,6 +13,7 @@ const Signup = () => {
     email: "",
     password: "",
   });
+  const { toast } = useToast();
   const [showError, setShowError] = useState(false);
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.user.loading);
@@ -33,6 +35,11 @@ const Signup = () => {
     dispatch(createUser(data));
     dispatch(HideLoginSign());
     setData({ name: "", email: "", password: "" });
+    toast({
+      title: "Signup successful",
+      description: "You have successfully signed up! Please log in now.",
+      variant: "success",
+    });
   };
   useEffect(() => {
     if (error?.status === 400) {

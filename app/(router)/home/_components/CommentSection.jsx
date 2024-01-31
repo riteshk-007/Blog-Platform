@@ -10,9 +10,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CommentSkeleton from "./CommentSkeleton";
 import { Trash2 } from "lucide-react";
-import { CldOgImage } from "next-cloudinary";
+import { useToast } from "@/components/ui/use-toast";
 
 const CommentSection = ({ userId, postId, post }) => {
+  const { toast } = useToast();
   const [commentValue, setCommentValue] = useState({
     comment: "",
     userId: "",
@@ -40,6 +41,11 @@ const CommentSection = ({ userId, postId, post }) => {
     setCommentValue({
       comment: "",
     });
+    toast({
+      title: "commented successfully",
+      description: "commented successfully",
+      variant: "success",
+    });
   };
 
   const handleCommentChange = (e) => {
@@ -55,6 +61,11 @@ const CommentSection = ({ userId, postId, post }) => {
   const commentDelete = (e) => {
     dispatch(deleteComment(e)).then(() => {
       dispatch(getComments(postId));
+      toast({
+        title: "Comment deleted successfully",
+        description: "Comment deleted successfully",
+        variant: "success",
+      });
     });
   };
   const comments = useSelector((state) => state?.commnet?.comments);
