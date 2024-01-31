@@ -72,7 +72,6 @@ export const deleteUserPost = createAsyncThunk(
   "post/deleteUserPost",
   async (id, thunkAPI) => {
     try {
-      // const dispatch = useDispatch();
       const user = await axios.post("/api/delete", {
         userId: id,
       });

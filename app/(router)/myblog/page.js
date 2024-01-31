@@ -31,13 +31,17 @@ const UserProfile = () => {
             <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-200">
               {user?.name}
               <span className="m-3">
-                <EditProfile name={"Name"} value={user?.name} />
+                <EditProfile name={"Name"} value={user?.name} updateInfo={""} />
               </span>
             </h2>
             <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
               {user?.email}
               <span className="m-3">
-                <EditProfile name={"Email"} value={user?.email} />
+                <EditProfile
+                  name={"Email"}
+                  value={user?.email}
+                  updateInfo={""}
+                />
               </span>
             </p>
             <div className="mt-2 text-lg text-gray-600 dark:text-gray-400 bg-white dark:bg-black p-4 rounded shadow flex items-center flex-col justify-center">
