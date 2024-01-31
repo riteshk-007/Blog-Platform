@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 export const PATCH = async (req) => {
   const { id, email } = await req.json();
-  console.log(id, email);
   try {
     const user = await prisma.user.findUnique({
       where: { id },
