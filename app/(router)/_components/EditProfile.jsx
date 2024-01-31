@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { SquarePen } from "lucide-react";
 
-const EditProfile = ({ name, value, updateInfo }) => {
+const EditProfile = ({ name, value, updateInfo, onChange }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -21,7 +21,7 @@ const EditProfile = ({ name, value, updateInfo }) => {
           <SquarePen size={15} />
         </Button>
       </DialogTrigger>
-      <DialogContent className="">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit {name}</DialogTitle>
           <DialogDescription>
@@ -36,12 +36,18 @@ const EditProfile = ({ name, value, updateInfo }) => {
               {name}
             </Label>
             {value?.length < 30 ? (
-              <Input id="name" defaultValue={value} className="col-span-3" />
+              <Input
+                id="name"
+                defaultValue={value}
+                className="col-span-3"
+                onChange={onChange}
+              />
             ) : (
               <Textarea
                 id="name"
                 defaultValue={value}
                 className="col-span-3 hide-scrollbar"
+                onChange={onChange}
                 rows={5}
                 style={{
                   overflow: "auto",
@@ -53,9 +59,7 @@ const EditProfile = ({ name, value, updateInfo }) => {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" onClick={updateInfo}>
-            Save
-          </Button>
+          <Button onClick={updateInfo}>Save</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

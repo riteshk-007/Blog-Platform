@@ -2,16 +2,18 @@
 import { Trash } from "lucide-react";
 import React from "react";
 import Dialog from "../_components/Dialog";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUserPost, getUser } from "@/app/redux/UserSignupLoginSlice";
 import BlogCard from "../home/_components/BlogCard";
 import BlogCardSkeleton from "../home/_components/BlogCardSkeleton";
 import { useRouter } from "next/navigation";
 import EditProfile from "../_components/EditProfile";
+import { updateUserName } from "@/app/redux/UpdateSlice";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
+  const [name, setName] = useState("");
   const router = useRouter();
   useEffect(() => {
     dispatch(getUser());
@@ -23,6 +25,15 @@ const UserProfile = () => {
     dispatch(deleteUserPost(user.id));
     router.push("/signup");
   };
+
+  useEffect(() => {
+    setName(user?.name);
+  }, [user?.name]);
+  const updateName = () => {
+    dispatch(updateUserName({ id: user?.id, name: name }));
+    window.location.reload();
+  };
+
   return (
     <div className="flex p-3 flex-col items-center justify-center min-h-screen py-2 dark:bg-gradient-to-r dark:from-gray-800  dark:to-black bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">
       <div className="max-w-4xl w-full space-y-8 dark:bg-black bg-white p-10 rounded-xl shadow-lg">
@@ -31,7 +42,12 @@ const UserProfile = () => {
             <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-200">
               {user?.name}
               <span className="m-3">
-                <EditProfile name={"Name"} value={user?.name} updateInfo={""} />
+                <EditProfile
+                  name={"Name"}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  updateInfo={updateName}
+                />
               </span>
             </h2>
             <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
