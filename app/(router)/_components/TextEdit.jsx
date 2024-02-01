@@ -58,7 +58,7 @@ const TextEdit = () => {
     toast({
       title: "Post created",
       description: "Your post has been created successfully",
-      variant: "success",
+      variant: "default",
     });
   };
 

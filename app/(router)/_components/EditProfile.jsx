@@ -21,7 +21,7 @@ const EditProfile = ({ name, value, updateInfo, onChange }) => {
     toast({
       title: `updated ${name} successfully`,
       description: `Updated ${name} successfully. Please close this update box and refresh the page to see the changes.`,
-      variant: "success",
+      variant: "default",
     });
   };
   return (

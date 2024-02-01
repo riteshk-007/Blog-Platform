@@ -44,7 +44,7 @@ const CommentSection = ({ userId, postId, post }) => {
     toast({
       title: "commented successfully",
       description: "commented successfully",
-      variant: "success",
+      variant: "default",
     });
   };
 
@@ -64,7 +64,7 @@ const CommentSection = ({ userId, postId, post }) => {
       toast({
         title: "Comment deleted successfully",
         description: "Comment deleted successfully",
-        variant: "success",
+        variant: "default",
       });
     });
   };

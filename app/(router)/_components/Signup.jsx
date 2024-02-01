@@ -13,12 +13,12 @@ const Signup = () => {
     email: "",
     password: "",
   });
-  const { toast } = useToast();
   const [showError, setShowError] = useState(false);
+  const { toast } = useToast();
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.user.loading);
-  const error = useSelector((state) => state.user.error);
   const user = useSelector((state) => state.user.user);
+  const message = useSelector((state) => state.user.message);
 
   useEffect(() => {
     if (user?.status === 201) {
@@ -33,22 +33,22 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(createUser(data));
-    dispatch(HideLoginSign());
-    setData({ name: "", email: "", password: "" });
-    toast({
-      title: "Signup successful",
-      description: "You have successfully signed up! Please log in now.",
-      variant: "success",
-    });
-  };
-  useEffect(() => {
-    if (error?.status === 400) {
-      setShowError(true);
-      setTimeout(() => {
-        setShowError(false);
-      }, 2500);
+    if (user?.data?.status === 201) {
+      dispatch(HideLoginSign());
     }
-  }, [error]);
+    setData({ name: "", email: "", password: "" });
+  };
+
+  useEffect(() => {
+    if (message) {
+      toast({
+        title: message?.message,
+        description: message?.message,
+        variant: "default",
+        duration: 3000,
+      });
+    }
+  }, [message, toast]);
   return (
     <div className="dark:bg-black bg-white">
       {loading ? (

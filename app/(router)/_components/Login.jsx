@@ -16,8 +16,8 @@ const Login = () => {
   const [showError, setShowError] = useState(false);
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.user.loading);
-  const error = useSelector((state) => state.user.error);
   const user = useSelector((state) => state.user.entity);
+  const message = useSelector((state) => state.user.message);
   const router = useRouter();
   const { toast } = useToast();
   const handleChange = (e) => {
@@ -27,21 +27,18 @@ const Login = () => {
     e.preventDefault();
     setShowError(false);
     dispatch(loginUser(data));
-    toast({
-      title: "Login successful",
-      description: "Successfully logged in",
-      variant: "success",
-    });
   };
 
   useEffect(() => {
-    if (error?.status === 400) {
-      setShowError(true);
-      setTimeout(() => {
-        setShowError(false);
-      }, 2500);
+    if (message) {
+      toast({
+        title: message?.message,
+        description: message?.message,
+        variant: "default",
+        duration: 3000,
+      });
     }
-  }, [error]);
+  }, [message, toast]);
   useEffect(() => {
     if (user?.data) {
       router.push("/home");

@@ -61,7 +61,7 @@ const SideNav = ({ show, setShow }) => {
             toast({
               title: "Logged out",
               description: "You have been logged out successfully",
-              variant: "success",
+              variant: "default",
             });
           },
         }

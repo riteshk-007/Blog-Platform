@@ -12,12 +12,18 @@ export const createUser = createAsyncThunk(
         password: user.password,
       });
       if (response.data.status === 201) {
-        return response.data;
+        return { data: response.data, message: response.data };
       } else {
-        return thunkAPI.rejectWithValue(response.data);
+        return thunkAPI.rejectWithValue({
+          data: response.data,
+          message: response.data,
+        });
       }
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue({
+        data: error.response.data,
+        message: error.response.data,
+      });
     }
   }
 );
@@ -31,12 +37,21 @@ export const loginUser = createAsyncThunk(
         password: user.password,
       });
       if (response.data.status === 200) {
-        return response.data;
+        return {
+          data: response.data,
+          message: response.data,
+        };
       } else {
-        return thunkAPI.rejectWithValue(response.data);
+        return thunkAPI.rejectWithValue({
+          data: response.data,
+          message: response.data,
+        });
       }
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue({
+        data: error.response.data,
+        message: error.response.data,
+      });
     }
   }
 );
@@ -50,7 +65,7 @@ export const getUser = createAsyncThunk("user/getUser", async (thunkAPI) => {
       return thunkAPI.rejectWithValue(response.data);
     }
   } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+    return thunkAPI.rejectWithValue(error.response.data);
   }
 });
 // logout user
@@ -63,7 +78,7 @@ export const logoutUser = createAsyncThunk("user/logout", async (thunkAPI) => {
       return thunkAPI.rejectWithValue(response.data);
     }
   } catch (error) {
-    return thunkAPI.rejectWithValue(error);
+    return thunkAPI.rejectWithValue(error.response.data);
   }
 });
 
@@ -95,6 +110,7 @@ export const UserSignupLoginSlice = createSlice({
     error: null,
     user: {},
     show: false,
+    message: null,
   },
   reducers: {
     ShowLoginSign: (state) => {
@@ -113,10 +129,12 @@ export const UserSignupLoginSlice = createSlice({
       .addCase(createUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+        state.message = action.payload.message;
       })
       .addCase(createUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.message = action.payload.message;
       });
     // login user
     builder
@@ -126,10 +144,12 @@ export const UserSignupLoginSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
         state.entity = action.payload;
+        state.message = action.payload.message;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.message = action.payload.message;
       });
     // get user details
     builder
