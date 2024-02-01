@@ -1,7 +1,9 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export const GET = async (req) => {
+export const dynamic = "force-dynamic";
+
+export const GET = async (_) => {
   try {
     const authToken = cookies().delete("authToken");
     if (authToken === undefined) {

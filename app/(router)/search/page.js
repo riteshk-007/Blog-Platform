@@ -17,7 +17,6 @@ const Search = () => {
 
   const searchItem = useSelector((state) => state.post.blogs.data);
   const loading = useSelector((state) => state.post.loading);
-  const error = useSelector((state) => state.post.error);
 
   if (loading)
     return (
