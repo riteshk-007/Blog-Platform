@@ -1,6 +1,7 @@
 import prisma from "@/DB/db.config";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
 export const GET = async (req) => {
   try {
     const search = req.nextUrl.searchParams.get("q");
