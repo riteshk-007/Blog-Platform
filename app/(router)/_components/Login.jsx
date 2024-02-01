@@ -7,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ShowLoginSign, loginUser } from "@/app/redux/UserSignupLoginSlice";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import TestUser from "./TestUser";
 
 const Login = () => {
   const [data, setData] = useState({
@@ -122,6 +123,7 @@ const Login = () => {
           </form>
         </div>
       )}
+      <TestUser />
     </div>
   );
 };
