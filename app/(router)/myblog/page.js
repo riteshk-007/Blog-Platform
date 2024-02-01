@@ -47,7 +47,7 @@ const UserProfile = () => {
       <div className="max-w-4xl w-full space-y-8 dark:bg-black bg-white p-10 rounded-xl shadow-lg">
         <div className="items-center justify-center w-full ">
           <div className="flex flex-col w-full items-center justify-center ">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-200">
+            <h2 className="md:text-4xl font-bold text-gray-900 dark:text-gray-200">
               {user?.name}
               <span className="m-3">
                 <EditProfile
@@ -58,7 +58,7 @@ const UserProfile = () => {
                 />
               </span>
             </h2>
-            <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
+            <p className="mt-2 md:text-lg text-gray-600 dark:text-gray-400">
               {user?.email}
               <span className="m-3">
                 <EditProfile
@@ -69,7 +69,7 @@ const UserProfile = () => {
                 />
               </span>
             </p>
-            <div className="mt-2 text-lg text-gray-600 dark:text-gray-400 bg-white dark:bg-black p-4 rounded shadow flex items-center flex-col justify-center">
+            <div className="mt-2 md:text-lg text-gray-600 dark:text-gray-400 bg-white dark:bg-black p-4 rounded shadow flex items-center flex-col justify-center">
               <h2 className="font-bold text-xl mb-2">Account Information</h2>
               <p>
                 <span className="font-semibold">Account created on: </span>

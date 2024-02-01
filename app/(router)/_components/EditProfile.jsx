@@ -23,6 +23,9 @@ const EditProfile = ({ name, value, updateInfo, onChange }) => {
       description: `Updated ${name} successfully. Please close this update box and refresh the page to see the changes.`,
       variant: "default",
     });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1800);
   };
   return (
     <Dialog>
